@@ -87,8 +87,9 @@ publish_chart:
     name: alpine/helm:3.12.3
     # 设置正确的 entrypoint 以便执行 shell 命令
     entrypoint: ["/bin/sh", "-c"]
-  # 依赖于前后端镜像构建完成
   needs:
+    # 如果 build_backend 的结果为 Passed 或 Skipped，都可以执行 publish_chart
+    # 否则 publish_chart 的结果直接为 Skipped
     - job: build_backend
       optional: true
     - job: build_frontend
@@ -123,7 +124,7 @@ publish_chart:
     - helm push ${CHART_NAME}-${LATEST_VERSION}.tgz oci://${OCI_REGISTRY}
 
   rules:
-    # 以下任何一个更新时，都运行此 Job
+    # 以下任何一个目录更新时，都运行此 Job（前提是满足 needs 条件）
     - changes:
         - $CHART_DIR/**/*
     - changes:
