@@ -90,7 +90,9 @@ publish_chart:
   # 依赖于前后端镜像构建完成
   needs:
     - job: build_backend
+      optional: true
     - job: build_frontend
+      optional: true
   script:
     # 进入 Helm Chart 目录
     - cd $CHART_DIR
