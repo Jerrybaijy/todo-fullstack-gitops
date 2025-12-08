@@ -90,10 +90,7 @@ publish_chart:
   # 依赖于前后端镜像构建完成
   needs:
     - job: build_backend
-      # 如果后端镜像构建失败，则跳过此 Job，否则都执行此 Job
-      optional: true
     - job: build_frontend
-      optional: true
   script:
     # 进入 Helm Chart 目录
     - cd $CHART_DIR
@@ -124,7 +121,7 @@ publish_chart:
     - helm push ${CHART_NAME}-${LATEST_VERSION}.tgz oci://${OCI_REGISTRY}
 
   rules:
-    # 当 Helm Chart 相关文件变化，或者前后端镜像更新时，都运行此 Job
+    # 以下任何一个更新时，都运行此 Job
     - changes:
         - $CHART_DIR/**/*
     - changes:
