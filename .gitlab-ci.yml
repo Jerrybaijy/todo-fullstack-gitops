@@ -50,7 +50,7 @@ build_backend:
     - echo "$DOCKER_HUB_TOKEN" | docker login -u "$DOCKER_HUB_USER" --password-stdin
   script:
     # 进入后端目录
-    - cd $BACKEND_DIR_error
+    - cd $BACKEND_DIR
     
     # 使用双标签构建：既有版本号（用于回溯），也有 latest（用于生产）
     - docker build -t $IMAGE_PREFIX/$PROJECT_NAME-$BACKEND_NAME:$CI_COMMIT_SHORT_SHA -t $IMAGE_PREFIX/$PROJECT_NAME-$BACKEND_NAME:latest .
