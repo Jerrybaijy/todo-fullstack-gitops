@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    # GitLab Container Registry 地址，注意要带上 chart 名称
+    # <oci-registry>/<chart-name>
     repoURL: oci://registry.gitlab.com/jerrybai/todo-fullstack-gitops/todo-chart
     # Chart 版本号
     targetRevision: "99.99.99-latest"
