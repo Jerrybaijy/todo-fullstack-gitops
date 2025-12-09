@@ -113,7 +113,7 @@ publish_chart:
     # 生成最终版本号（基础版本号 + SHA）
     - SHA_VERSION="${CHART_VERSION}-${CI_COMMIT_SHORT_SHA}"
     # latest 版本号（最大版本号 + latest）
-    - LATEST_VERSION="${CHART_VERSION}-latest"
+    - LATEST_VERSION="99.99.99-latest"
     
     # 打包 Chart
     - helm package . --version "${SHA_VERSION}"
